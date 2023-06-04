@@ -21,25 +21,29 @@ class Search:
             "Accept-Language": "en-US,en;q=0.9",
         }
 
+        # Send a GET request to the search URL
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.content, "html.parser")
 
         results = []
 
+        # Extract the relevant HTML elements from the page
         items = soup.select(details["mainDiv"])
         print("Items: ", len(items))
 
+        # Parse each item and extract the necessary information
         for item in items:
             name_element = item.select_one(details["name"])
             image_element = item.select_one(details["image"])
             price_element = item.select_one(details["price"])
 
             if name_element and image_element and price_element:
+                # Extract the name, image URL, and price from the elements
                 name = name_element.text.strip()
                 image = image_element["src"]
-                price = float(price_element.text.replace(",", "").replace("₹",""))
+                price = float(price_element.text.replace(",", "").replace("₹", ""))
 
+                # Add the item details to the results list
                 results.append({"name": name, "image": image, "price": price})
 
         return results
-
