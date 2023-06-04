@@ -1,6 +1,5 @@
 fastapi
 uvicorn
 httpx
-http
 requests
 bs4
