@@ -8,6 +8,7 @@ from service.utils import Company, companyDetails
 class Search:
     @staticmethod
     async def search(company_name: Company, query: str) -> List[Dict[str, str]]:
+        # this is generic function
         if company_name not in companyDetails:
             raise ValueError(f"Company '{company_name}' is not supported")
 
